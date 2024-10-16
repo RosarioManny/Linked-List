@@ -1,19 +1,68 @@
+// Class Boilerplate
+// class Node{
+//     constructor(){
+//     }
+// }
+
 class Node{
-    constructor(){
-        // a Node starts with a given data property
-        // a Node also has a .next property initialized as null
+    constructor(inputdata){
+        // this. keyword is needed when we don't have the exact information.
+        // vv Key name vv what it has
+        this.data = inputdata
+        // the next thing this node will point to.
+        this.next = null
     }
 }
+
+const node = new Node(10)
+console.log(node)
 
 class LinkedList{
     constructor(){
         // a Linked List starts with a "head" property intialized as null
+        this.head = null;
     }
+ //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     appendNode(data){
-        // creates a new node with the given data and adds it to back of the list
+        // creates a new node with the given data 
+        const node = new Node(data);
+
+        // and adds it to back of the list
+        if (this.head === null) {
+            this.head = node
+            return this;
+        };
+
+        // What if you have more than the head. How do you add when you have many nodes
+        // Creates a walker to start at the head
+        let walker = this.head
+
+        // This checks the next node to see if there is null at .next.
+        while(walker.next) {
+            walker = walker.next
+        }
+
+        // If null, adds the new node(null is falsy)
+        walker.next = node
+        return
     }
+ //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     prependNode(data){
-        // creates a new node with the given data and adds it to the front of the list
+        // creates a new node with the given data 
+        const node = new Node(data);
+
+        // and adds it to the front of the list
+        if (!this.head) {
+            this.head = node;
+            return this;
+        }
+
+        // To not lose track of your list you need the new Node to point to the old Head
+        let oldHead = this.head;
+        node.next = oldHead
+        // and the new Node can become the new Head of the list
+        this.head = node
+        return
     }
     pop(){
         // removes the last node from the list and returns it
